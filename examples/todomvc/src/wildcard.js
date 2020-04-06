@@ -1,5 +1,6 @@
-export const genWcMiddleware = (stateToTable) => {
+export const genWcMiddleware = (columns, stateToTable) => {
   return ({ getState }) => next => action => {
+    console.log("columns", columns)
     console.log('will dispatch', action)
 
     // Call the next dispatch method in the middleware chain.

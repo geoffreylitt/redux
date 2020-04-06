@@ -1,8 +1,10 @@
 import { createSelector } from 'reselect'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
+import _ from 'lodash'
 
 const getVisibilityFilter = state => state.visibilityFilter
 const getTodos = state => state.todos
+const getWcConfig = state => state.__wildcard__
 
 export const getVisibleTodos = createSelector(
   [getVisibilityFilter, getTodos],
@@ -28,4 +30,17 @@ export const getCompletedTodoCount = createSelector(
       0
     )
   )
+)
+
+export const getSortedTodos = createSelector(
+  [getVisibleTodos, getWcConfig],
+  (visibleTodos, wcConfig) => {
+    const sortConfig = wcConfig.sort
+    console.log("sort config", sortConfig);
+    if (!sortConfig || !sortConfig.direction === "NONE") { return visibleTodos; }
+    console.log("made it here")
+    let sorted = _.sortBy(visibleTodos, t => t[sortConfig.column])
+    if (sortConfig.direction === "DESC") { sorted = sorted.reverse() }
+    return sorted;
+  }
 )
