@@ -7,7 +7,7 @@ const MainSection = ({ todosCount, completedCount, actions }) =>
   (
     <section className="main">
       {
-        !!todosCount && 
+        !!todosCount &&
         <span>
           <input
             className="toggle-all"
@@ -37,3 +37,4 @@ MainSection.propTypes = {
 }
 
 export default MainSection;
+
