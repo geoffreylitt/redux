@@ -6,7 +6,6 @@ import { Provider } from 'react-redux'
 import App from './components/App'
 import reducer from './reducers'
 import 'todomvc-app-css/index.css'
-import './wildcard/styles.css'
 import { addTodo, editTodo, completeTodo } from './actions'
 
 // We define a function which converts a Wildcard generic action

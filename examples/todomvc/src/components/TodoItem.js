@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
+import WcExtraData from '../wildcard/WcExtraDataComponent'
 
 export default class TodoItem extends Component {
   static propTypes = {
@@ -47,9 +48,7 @@ export default class TodoItem extends Component {
                  onChange={() => completeTodo(todo.id)} />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
-            <span className="wc--extra-data">
-              {extraData && extraData["DueDate"]}
-            </span>
+            <WcExtraData extraData={extraData} />
           </label>
           <button className="destroy"
                   onClick={() => deleteTodo(todo.id)} />

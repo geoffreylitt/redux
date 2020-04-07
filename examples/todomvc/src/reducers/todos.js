@@ -9,9 +9,9 @@ import {
 
 const initialState = [
   {
-    id: 0,
-    text: "do laundry",
-    completed: false
+    text: 'Use Redux',
+    completed: false,
+    id: 0
   }
 ]
 

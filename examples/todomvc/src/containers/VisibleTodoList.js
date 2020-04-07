@@ -5,7 +5,6 @@ import TodoList from '../components/TodoList'
 import { getSortedTodos } from '../selectors'
 
 const mapStateToProps = state => ({
-  // filteredTodos: getVisibleTodos(state)
   filteredTodos: getSortedTodos(state),
   extraData: state.__wildcard__.extraData
 })
