@@ -2,7 +2,7 @@ import React from 'react'
 
 const divStyle = {
   position: "fixed",
-  height: "300px",
+  height: "250px",
   left: 0,
   bottom: 0,
   width: "100vw",
@@ -11,29 +11,32 @@ const divStyle = {
   fontWeight: "normal"
 }
 
-const todosTable = (todos) => {
+function todosTable(todos, extraColumns, extraData) {
   return <table border="1">
       <thead style={{display: "table-header-group", textAlign: "left"}}>
         <tr>
           <th>id</th>
           <th>text</th>
           <th>completed</th>
+          {extraColumns.map(col => <th key={col}>{col}</th>)}
         </tr>
       </thead>
       <tbody>
         {todos.map(todo => {
-          return <tr>
+          const extraDataForTodo = extraData[todo.id] || {}
+          return <tr key={todo.id}>
             <td>{todo.id}</td>
             <td>{todo.text}</td>
             <td>{todo.completed ? "true" : "false"}</td>
+            {extraColumns.map(col => <td key={col}>{extraDataForTodo[col]}</td>)}
           </tr>
         })}
       </tbody>
     </table>
 }
 
-const WcTable = ({todos, sortedTodos, sortOrder, actions}) => {
-  let sortByText = () => {
+const WcTable = ({todos, sortedTodos, extraColumns, extraData, sortOrder, actions}) => {
+  const sortByText = () => {
     if (!sortOrder.column) {
       actions.sortTable("text", "ASC");
     } else if (sortOrder.direction === "ASC") {
@@ -43,25 +46,41 @@ const WcTable = ({todos, sortedTodos, sortOrder, actions}) => {
     }
   }
 
+  const addTodo = () => {
+    actions.addRecord({ text: "from wildcard" })
+  }
+
+  const addSnoozeColumn = () => {
+    actions.addColumn("snooze");
+
+    actions.updateRecord("1", "snooze", "true")
+  }
+
   return <div style={divStyle}>
     <div style={{float: "left", width: "33vw"}}>
       <h2>todos</h2>
-      {todosTable(todos)}
+      {todosTable(todos, extraColumns, extraData)}
     </div>
 
     <div style={{float: "left", width: "33vw"}}>
       <h2>sorted/filtered view</h2>
-      {todosTable(sortedTodos)}
+      {todosTable(sortedTodos, extraColumns, extraData)}
     </div>
 
     <div style={{float: "left", width:"33vw"}}>
-      <h2>Sort Control</h2>
+      <div>
+        <button style={{backgroundColor: "#0f4d92", color: "white", padding: 10, borderRadius: 5}} onClick={addTodo}>Add a todo</button>
+      </div>
 
       <div>Sort column: <strong>{sortOrder.column}</strong></div>
       <div>Sort direction: <strong>{sortOrder.direction}</strong></div>
 
       <div>
-        <button style={{backgroundColor: "#0f4d92", color: "white", padding: 10, borderRadius: 5}} onClick={sortByText}>Sort by text</button>
+        <button style={{backgroundColor: "#0f4d92", color: "white", padding: 10, borderRadius: 5, marginBottom: 10}} onClick={sortByText}>Sort by text</button>
+      </div>
+
+      <div>
+        <button style={{backgroundColor: "#0f4d92", color: "white", padding: 10, borderRadius: 5}} onClick={addSnoozeColumn}>Add snooze column</button>
       </div>
     </div>
   </div>

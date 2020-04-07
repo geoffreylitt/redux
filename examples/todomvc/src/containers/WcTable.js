@@ -7,6 +7,8 @@ import { getSortedTodos } from '../selectors'
 const mapStateToProps = state => ({
   todos: state.todos,
   sortedTodos: getSortedTodos(state),
+  extraColumns: state.__wildcard__.extraColumns,
+  extraData: state.__wildcard__.extraData,
   sortOrder: state.__wildcard__.sort
 })
 

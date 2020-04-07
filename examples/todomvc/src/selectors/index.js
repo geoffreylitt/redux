@@ -36,9 +36,7 @@ export const getSortedTodos = createSelector(
   [getVisibleTodos, getWcConfig],
   (visibleTodos, wcConfig) => {
     const sortConfig = wcConfig.sort
-    console.log("sort config", sortConfig);
     if (!sortConfig || !sortConfig.direction === "NONE") { return visibleTodos; }
-    console.log("made it here")
     let sorted = _.sortBy(visibleTodos, t => t[sortConfig.column])
     if (sortConfig.direction === "DESC") { sorted = sorted.reverse() }
     return sorted;
