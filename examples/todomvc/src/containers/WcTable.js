@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import * as TodoActions from '../actions'
+import * as WildcardActions from '../wildcard/actions'
 import { bindActionCreators } from 'redux'
 import WcTable from '../components/WcTable'
 import { getSortedTodos } from '../selectors'
@@ -14,7 +15,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(TodoActions, dispatch)
+  actions: bindActionCreators({ ...TodoActions, ...WildcardActions }, dispatch)
 })
 
 
