@@ -1,13 +1,11 @@
-import { applyMiddleware } from 'redux'
-import { addTodo, editTodo, completeTodo } from './actions'
+// This file defines the Redux Store Enhancer for Wildcard
+// More details on what a store enhancer is:
+// https://redux.js.org/glossary#store-enhancer
 
-// This needs to be configured somewhere --
-// it's highly related to the stateToTable function
-const appColumns = [
-  "id",
-  "text",
-  "completed"
-]
+// todo: combine the "middleware" with the store enhancer
+// can we basically get rid of this whole file? seems pretty slim at this point
+
+import { applyMiddleware } from 'redux'
 
 export const genWcMiddleware = (stateToTable) => {
   return ({ getState }) => next => action => {
@@ -26,7 +24,7 @@ export const genWcMiddleware = (stateToTable) => {
   }
 }
 
-export const wcStoreEnhancer = (next) => (reducer, preloadedState) => {
+export const genWcStoreEnhancer = (actionTransformer) => (next) => (reducer, preloadedState) => {
   // Augment the reducer function before it gets passed in.
   // Handle the wildcard events in the reducer function.
 
@@ -36,23 +34,7 @@ export const wcStoreEnhancer = (next) => (reducer, preloadedState) => {
   //
   // In addition to this, Wildcard also maintains its own reducer in the tree,
   // but we need this in order to affect parts of the app's normal state.
-  const enhancedReducer = (state, action) => {
-    switch (action.type) {
-      case "WC_ADD_RECORD":
-        return reducer(state, addTodo(action.data.text));
-
-      // translate a generic row edit into a specific edit for this app
-      case "WC_UPDATE_RECORD":
-        if (action.column === "text") {
-          return reducer(state, editTodo(action.id, action.value));
-        } else if (action.column === "completed") {
-          return reducer(state, completeTodo(action.id));
-        }
-
-      default:
-        return reducer(state, action);
-    }
-  }
+  const enhancedReducer = (state, action) => reducer(state, actionTransformer(action));
 
   // We use a middleware to hook into dispatch.
   // (we might want to move this up into the StoreEnhancer at some point)
