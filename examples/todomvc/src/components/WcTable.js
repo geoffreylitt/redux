@@ -50,10 +50,11 @@ const WcTable = ({todos, sortedTodos, extraColumns, extraData, sortOrder, action
     actions.addRecord({ text: "from wildcard" })
   }
 
-  const addSnoozeColumn = () => {
-    actions.addColumn("snooze");
+  const addDueDate = () => {
+    actions.addColumn("DueDate");
 
-    actions.updateRecord("1", "snooze", "true")
+    actions.updateRecord("0", "DueDate", "April 14")
+    actions.updateRecord("1", "DueDate", "April 22")
   }
 
   return <div style={divStyle}>
@@ -80,7 +81,7 @@ const WcTable = ({todos, sortedTodos, extraColumns, extraData, sortOrder, action
       </div>
 
       <div>
-        <button style={{backgroundColor: "#0f4d92", color: "white", padding: 10, borderRadius: 5}} onClick={addSnoozeColumn}>Add snooze column</button>
+        <button style={{backgroundColor: "#0f4d92", color: "white", padding: 10, borderRadius: 5}} onClick={addDueDate}>Add due date column</button>
       </div>
     </div>
   </div>

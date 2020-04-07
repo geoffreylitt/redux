@@ -6,7 +6,8 @@ import { getSortedTodos } from '../selectors'
 
 const mapStateToProps = state => ({
   // filteredTodos: getVisibleTodos(state)
-  filteredTodos: getSortedTodos(state)
+  filteredTodos: getSortedTodos(state),
+  extraData: state.__wildcard__.extraData
 })
 
 const mapDispatchToProps = dispatch => ({

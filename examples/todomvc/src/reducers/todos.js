@@ -8,6 +8,11 @@ import {
 } from '../constants/ActionTypes'
 
 const initialState = [
+  {
+    id: 0,
+    text: "do laundry",
+    completed: false
+  }
 ]
 
 export default function todos(state = initialState, action) {

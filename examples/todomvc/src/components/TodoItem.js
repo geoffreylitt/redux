@@ -29,7 +29,7 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const { todo, completeTodo, deleteTodo, extraData } = this.props
 
     let element
     if (this.state.editing) {
@@ -47,6 +47,9 @@ export default class TodoItem extends Component {
                  onChange={() => completeTodo(todo.id)} />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
+            <span className="wc--extra-data">
+              {extraData && extraData["DueDate"]}
+            </span>
           </label>
           <button className="destroy"
                   onClick={() => deleteTodo(todo.id)} />

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import App from './components/App'
 import reducer from './reducers'
 import 'todomvc-app-css/index.css'
+import './wildcard-styles.css'
 
 // todo: move all the code out of this repo, into browser extension.
 // The extension will communicate w/ the app via the DOM window object.
