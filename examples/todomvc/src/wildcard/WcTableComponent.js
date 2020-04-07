@@ -11,6 +11,8 @@ const divStyle = {
   fontWeight: "normal"
 }
 
+// This is todos-specific right now, but that's fine --
+// straightforward eng work to generalize to the app's data
 function todosTable(todos, extraColumns, extraData) {
   return <table border="1">
       <thead style={{display: "table-header-group", textAlign: "left"}}>
